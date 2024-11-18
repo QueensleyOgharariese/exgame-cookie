@@ -49,6 +49,7 @@ export type User = {
   image?: string;
 
   /**
+   * 
    * Rappresenta i corsi assegnati a un docente. Questa proprietà è valorizzata solo per i "role" teacher
    */
   subjects?: string[];
@@ -62,6 +63,9 @@ export type User = {
    * Rappresenta la classe a cui uno studente appartiene. E' valorizzato solo per i "role" student
    */
   student_class?: string;
+
+
+  token: string;
 };
 
 export type Role = "admin" | "teacher" | "student";

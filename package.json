@@ -33,5 +33,8 @@
   },
   "devDependencies": {
     "prettier": "^3.3.3"
+  },
+  "dependencies": {
+    "@mui/joy": "^5.0.0-beta.48"
   }
 }
