@@ -8,15 +8,23 @@ import {
   remove,
   view,
 } from "../services/user";
+import { AuthenticatedContext } from "../types/session";
+import { authMiddleware } from "./auth";
 
-const router = new Router({
+const router = new Router<unknown, AuthenticatedContext>({
   prefix: "/users",
 });
 
-// All routes
+router.use(authMiddleware());
+
+// All users
 router.get("/", async (ctx) => {
   const all = await index();
   ctx.response.body = all;
+});
+
+router.get("/me", async (ctx) => {
+  ctx.response.body = ctx.session.user;
 });
 
 router.get("/role/:role", async (ctx) => {
@@ -25,7 +33,7 @@ router.get("/role/:role", async (ctx) => {
 
 // Find a user
 router.get("/:id", async (ctx) => {
-  const user = await view(ctx.params.id);
+  const user = await view(ctx.params.id, ctx.session.user);
 
   if (!user) {
     // User not found
